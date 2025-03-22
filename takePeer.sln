@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "takePeer", "takePeer\takePeer.csproj", "{644C7E76-0A73-4858-A2F7-18768E225729}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TakePeers", "TakePeers\TakePeers.vdproj", "{C3983A80-D3F1-49D1-85E8-28084BC56284}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{644C7E76-0A73-4858-A2F7-18768E225729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644C7E76-0A73-4858-A2F7-18768E225729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644C7E76-0A73-4858-A2F7-18768E225729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644C7E76-0A73-4858-A2F7-18768E225729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3983A80-D3F1-49D1-85E8-28084BC56284}.Debug|Any CPU.ActiveCfg = Debug
+		{C3983A80-D3F1-49D1-85E8-28084BC56284}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CC70EB36-9C98-4F64-9207-ACADD834AA75}
+	EndGlobalSection
+EndGlobal
