@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JSON Data Display</title>
+    <input type="text" id="searchInput" placeholder="Search by ID or Endpoint" oninput="filterPeers()" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #dataContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; 
+        }
+        .company-header {
+            font-size: 20px; 
+            margin: 20px 0; 
+            border-bottom: 2px solid #ddd; 
+            padding-bottom: 10px; 
+            line-height: 1.5; 
+        }
+        .data-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px; 
+        }
+        .data-section {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden; 
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 24px; 
+            margin-bottom: 20px; 
+        }
+        
+        p, ul {
+            margin: 10px 0;
+            word-break: break-word; 
+        }
+        p {
+            font-size: 16px; 
+        }
+        .allowed-ips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px; 
+        }
+        .allowed-ips span {
+            background-color: #e0e0e0;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .history-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .history-container.open {
+            max-height: 500px; 
+        }
+        .toggle-button {
+            cursor: pointer;
+            color: #007BFF;
+            border: none;
+            background: none;
+            font-size: 14px;
+            text-align: left;
+            width: 100%;
+        }
+        #customFileButton {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #customFileButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Peers</h1>
+    <button id="sortIdButton">Sort by ID</button>
+    <button id="sortEndpointButton">Sort by Endpoint</button>
+
+    <input type="file" id="fileInput" multiple style="display:none" />
+
+    <button id="customFileButton">Choose Files</button>
+
+    <div id="dataContainer"></div>
+
+    <script>
+        let sortStateId = 'none'; 
+        let sortStateEndpoint = 'none'; 
+        
+        function sortById() {
+            const container = document.getElementById('dataContainer');
+            const dataContainers = Array.from(container.querySelectorAll('.data-container'));
+        
+            dataContainers.forEach(dataContainer => {
+                const sections = Array.from(dataContainer.querySelectorAll('.data-section'));
+        
+                let sortOrder;
+                if (sortStateId === 'none') {
+                    sortOrder = 'ascending';
+                    sortStateId = 'ascending';
+                } else if (sortStateId === 'ascending') {
+                    sortOrder = 'descending';
+                    sortStateId = 'descending';
+                } else {
+                    sortOrder = 'none';
+                    sortStateId = 'none';
+                    sections.forEach(section => dataContainer.appendChild(section));
+                    return;
+                }
+        
+                sections.sort((a, b) => {
+                    const idA = a.querySelector('p').textContent.trim();
+                    const idB = b.querySelector('p').textContent.trim();
+                    return sortOrder === 'ascending' ? idA.localeCompare(idB) : idB.localeCompare(idA);
+                });
+        
+                sections.forEach(section => dataContainer.appendChild(section));
+            });
+        }
+        
+        function sortByEndpoint() {
+            const container = document.getElementById('dataContainer');
+            const dataContainers = Array.from(container.querySelectorAll('.data-container'));
+        
+            dataContainers.forEach(dataContainer => {
+                const sections = Array.from(dataContainer.querySelectorAll('.data-section'));
+        
+                let sortOrder;
+                if (sortStateEndpoint === 'none') {
+                    sortOrder = 'ascending';
+                    sortStateEndpoint = 'ascending';
+                } else if (sortStateEndpoint === 'ascending') {
+                    sortOrder = 'descending';
+                    sortStateEndpoint = 'descending';
+                } else {
+                    sortOrder = 'none';
+                    sortStateEndpoint = 'none';
+                    sections.forEach(section => dataContainer.appendChild(section));
+                    return;
+                }
+        
+                sections.sort((a, b) => {
+                    const endpointA = a.querySelector('p:nth-of-type(2)').textContent.trim();
+                    const endpointB = b.querySelector('p:nth-of-type(2)').textContent.trim();
+                    return sortOrder === 'ascending' ? endpointA.localeCompare(endpointB) : endpointB.localeCompare(endpointA);
+                });
+        
+                sections.forEach(section => dataContainer.appendChild(section));
+            });
+        }
+        
+        document.getElementById('sortIdButton').addEventListener('click', sortById);
+        document.getElementById('sortEndpointButton').addEventListener('click', sortByEndpoint);
+
+        document.getElementById('customFileButton').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+    </script>
+    
+    <script src="app.js"></script>
+</body>
+</html>
